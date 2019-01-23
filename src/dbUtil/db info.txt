@@ -1,0 +1,31 @@
+db name = pc_store
+db tabels = loginaccounts, products
+username = "root"
+password = ""
+
+loginaccounts table:
+username
+password
+
+products table:
+edit_id -> auto increment
+id -> formula
+name
+price
+quantity
+
+products ID formula:
+ADDMMYYYYNNNNNN
+replace A with:
+	CPU: 1
+	GPU: 2
+	RAM: 3
+	HDD: 4
+	SSD: 5
+	MOTHERBOARD: 6
+	COOLER: 7
+	CASE: 8
+	POWER SUPPLY: 9
+	OTHERS: 0
+replace DDMMYYYY with fabrication date
+replace NNNNNN with a base16 serial number, uppercase letters
