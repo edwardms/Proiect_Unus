@@ -28,4 +28,4 @@ replace A with:
 	POWER SUPPLY: 9
 	OTHERS: 0
 replace DDMMYYYY with fabrication date
-replace NNNNNN with a base16 serial number, uppercase letters
+replace NNNNNN with a base16 serial number

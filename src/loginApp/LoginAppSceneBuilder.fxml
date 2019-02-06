@@ -9,7 +9,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="loginApp.LoginAppController">
    <children>
-      <Label layoutX="50.0" layoutY="75.0" prefHeight="25.0" prefWidth="100.0" text="Username">
+      <Label layoutX="50.0" layoutY="88.0" prefHeight="25.0" prefWidth="100.0" text="Username">
          <font>
             <Font size="15.0" />
          </font>
@@ -19,7 +19,7 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="usernameField" layoutX="191.0" layoutY="68.0" prefHeight="25.0" prefWidth="225.0">
+      <TextField fx:id="usernameField" layoutX="191.0" layoutY="85.0" prefHeight="25.0" prefWidth="225.0">
          <font>
             <Font size="15.0" />
          </font>
@@ -29,12 +29,12 @@
             <Font size="15.0" />
          </font>
       </PasswordField>
-      <Button fx:id="loginButton" layoutX="190.0" layoutY="210.0" mnemonicParsing="false" onAction="#loginButtonAction" prefHeight="39.0" prefWidth="100.0" text="Login">
+      <Button fx:id="loginButton" layoutX="191.0" layoutY="194.0" mnemonicParsing="false" onAction="#loginButtonAction" prefHeight="39.0" prefWidth="100.0" text="Login">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Label fx:id="dbStatusLabel" layoutX="191.0" layoutY="302.0" prefHeight="30.0" prefWidth="225.0" />
-      <Label layoutX="50.0" layoutY="302.0" prefHeight="30.0" prefWidth="100.0" text="Connection status" />
+      <Label fx:id="dbStatusLabel" layoutX="191.0" layoutY="287.0" prefHeight="30.0" prefWidth="225.0" />
+      <Label layoutX="50.0" layoutY="287.0" prefHeight="30.0" prefWidth="100.0" text="Info" />
    </children>
 </AnchorPane>
