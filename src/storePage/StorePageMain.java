@@ -23,14 +23,14 @@ public class StorePageMain extends Application {
 		Parent root;
 		Scene scene;
 		try {
-			fxmlLoginFileLocation ="StoreSalePageSceneBuilder.fxml";
+			fxmlLoginFileLocation ="StoreMainPageSceneBuilder.fxml";
 			root = FXMLLoader.load(getClass().getResource(fxmlLoginFileLocation));
 			
 			scene = new Scene(root);
 			stage.setScene(scene);
 			stage.setTitle("PC Store AG - store page");
 			stage.getIcons().add(new Image("icons/pc_store_icon.png"));
-			stage.setResizable(false);
+			stage.setResizable(true);
 			stage.show();			
 		} catch (IOException e) {
 			e.printStackTrace();

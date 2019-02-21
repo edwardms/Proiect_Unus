@@ -1,6 +1,5 @@
 package fxUtil;
 
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,21 +14,21 @@ public class CloseAlert {
 	
 	static boolean answer;
 	
-	public static boolean displayCloseMessage() {
+	public static boolean displayCloseMessage(String windowTitle, String messageToDisplay, String yesButtonText, String noButtonText) {
 		Stage window = new Stage();
 		
 		window.initModality(Modality.APPLICATION_MODAL);
-		window.setTitle("Closing PC Store Application");
+		window.setTitle(windowTitle);
 		
 		window.setWidth(360);
 		window.setHeight(240);
 		window.setResizable(false);
 		
-		Label message = new Label("Are you sure you want to close the application?");
+		Label message = new Label(messageToDisplay);
 		message.setFont(new Font(15));
-		Button yesButton = new Button("Yes");
+		Button yesButton = new Button(yesButtonText);
 		yesButton.setFont(new Font(15));
-		Button noButton = new Button("No");
+		Button noButton = new Button(noButtonText);
 		noButton.setFont(new Font(15));
 		
 		yesButton.setOnAction(e -> {

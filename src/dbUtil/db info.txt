@@ -29,3 +29,14 @@ replace A with:
 	OTHERS: 0
 replace DDMMYYYY with fabrication date
 replace NNNNNN with a base16 serial number
+A + DDMMYYYY = first part of the ID serial number
+NNNNNN = second part of the ID serial number
+
+ex: 
+110102000100100 -> good id
+110132000100100 -> bad id (wrong date)
+
+
+
+
+

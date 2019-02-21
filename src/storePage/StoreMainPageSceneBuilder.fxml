@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
+   <content>
+      <TabPane fx:id="mainTabPane" prefHeight="888.0" prefWidth="1270.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab fx:id="saleTabPage" text="Sell products">
+                <content>
+                  <fx:include source="../storeSalePage/StoreSalePageSceneBuilder.fxml">
+                  </fx:include>
+               </content>
+          </Tab>
+           <Tab fx:id="updateTabPage" text="Update products list">
+               <content>
+                  <fx:include source="../storeUpdatePage/StoreUpdatePageSceneBuilder.fxml">
+                  </fx:include>
+               </content>
+            </Tab>
+           <!--  <Tab text="Add product">
+               <content>
+                  <Pane fx:id="11" prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="productsUpdateTable1" layoutX="392.0" layoutY="2.0" prefHeight="855.0" prefWidth="878.0">
+                           <columns>
+                              <TableColumn fx:id="idUpdateColumn1" prefWidth="167.0" text="ID" />
+                              <TableColumn fx:id="nameUpdateColumn1" prefWidth="431.0" text="Name" />
+                              <TableColumn fx:id="priceUpdateColumn1" prefWidth="110.0" text="Price [$]" />
+                              <TableColumn fx:id="quantityUpdateColumn1" prefWidth="167.0" text="Available Quantity [pieces]" />
+                           </columns>
+                        </TableView>
+                        <Label layoutX="15.0" layoutY="23.0" prefHeight="21.0" prefWidth="115.0" text="Search products">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="searchFieldUpdate1" layoutX="15.0" layoutY="51.0" prefHeight="25.0" prefWidth="337.0" promptText="Input ID or name" />
+                        <Button fx:id="addUpdateProductButton1" alignment="TOP_LEFT" layoutX="13.0" layoutY="562.0" mnemonicParsing="false" onAction="#addProduct" text="Add / Update product" wrapText="true">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Label layoutX="14.0" layoutY="479.0" prefHeight="20.0" prefWidth="135.0" text="Input new quantity">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="newQuantityTextfield1" layoutX="175.0" layoutY="477.0" prefHeight="25.0" prefWidth="119.0" text="1" />
+                        <Label layoutX="313.0" layoutY="479.0" text="pieces">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="displayAllProductsButtonUpdate1" layoutX="113.0" layoutY="88.0" mnemonicParsing="false" onAction="#displayAllProducts" text="Display all products">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="searchButtonUpdate1" layoutX="16.0" layoutY="88.0" mnemonicParsing="false" onAction="#searchProduct" prefHeight="30.0" prefWidth="64.0" text="Search">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Label layoutX="14.0" layoutY="515.0" prefHeight="20.0" prefWidth="135.0" text="Input new price">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="newPriceTextfield1" layoutX="175.0" layoutY="513.0" prefHeight="25.0" prefWidth="119.0" text="1" />
+                        <Label layoutX="328.0" layoutY="515.0" text="\$">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="productUpdateInfo1" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="5.0" layoutY="610.0" prefHeight="55.0" prefWidth="381.0" text="aasdasda asdhajh jask hjkasashasdhjkas jas as a s w a sdasdhasjdhasdksadasdaskjdashkaskhjd" textAlignment="JUSTIFY" textFill="#f52020" wrapText="true">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="currentProductName1" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="5.0" layoutY="130.0" prefHeight="50.0" prefWidth="380.0" text="Product name: " textAlignment="JUSTIFY" wrapText="true">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="currentProductId1" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="5.0" layoutY="180.0" prefHeight="20.0" prefWidth="380.0" text="Product ID: " textAlignment="JUSTIFY" wrapText="true">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="currentProductQuantity1" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="5.0" layoutY="210.0" prefHeight="20.0" prefWidth="380.0" text="Quantity: " textAlignment="JUSTIFY" wrapText="true">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="currentProductPrice1" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="5.0" layoutY="240.0" prefHeight="20.0" prefWidth="380.0" text="Price: " textAlignment="JUSTIFY" wrapText="true">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Line endX="196.0" layoutX="195.0" layoutY="316.0" startX="-196.0" />
+                        <Label layoutX="14.0" layoutY="325.0" prefHeight="20.0" prefWidth="135.0" text="Input new name">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <TextArea fx:id="newNameTextarea1" layoutX="10.0" layoutY="350.0" prefHeight="55.0" prefWidth="370.0" wrapText="true">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </TextArea>
+                        <Label layoutX="12.0" layoutY="407.0" prefHeight="20.0" prefWidth="135.0" text="Input new ID">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="newIdTextfield1" layoutX="10.0" layoutY="433.0" prefHeight="25.0" prefWidth="370.0" />
+                        <ToggleButton layoutX="37.0" layoutY="275.0" mnemonicParsing="false" text="ToggleButton" />
+                     </children>
+                  </Pane>
+               </content>
+            </Tab> -->
+        </tabs>
+      </TabPane>
+   </content>
+</ScrollPane>

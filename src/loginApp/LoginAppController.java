@@ -5,6 +5,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import fxUtil.CloseAlert;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -81,6 +82,15 @@ public class LoginAppController implements Initializable {
 			salePageStage.getIcons().add(new Image("icons/pc_store_icon.png"));
 			salePageStage.setResizable(false);
 			salePageStage.show();
+								
+			salePageStage.setOnCloseRequest(e -> {
+				e.consume();
+				Boolean answer = CloseAlert.displayCloseMessage("Close PC Store AG app", "Are you sure you want to close the window?", "Yes", "No");
+				if (answer == true) {
+					salePageStage.close();
+					System.out.println("Class SaleStorePage: JavaFx app close.");
+				}
+			});
 		} catch (IOException e) {
 			e.printStackTrace();
 		}		

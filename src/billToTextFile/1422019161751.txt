@@ -1,0 +1,17 @@
+		Bill number: 1422019161751
+		created on 2019-02-14 4:17 PM
+-------------------------------------------------------------------------
+Product name                                  		Quantity 		Price
+Intel i7 3.5Ghz                            94     250.33 
+Kinsgston ASeis DDR4 8Gb                   58     120.01 
+KingKooler RR489 500W                      46      62.99 
+Western Digital SSD XCM-VAR2 256Gb         14      179.1 
+Gygabite Rok-1209 GGR80                    72     109.97 
+
+-------------------------------------------------------------------------
+
+Total Price: 7.105427357601002E-15 $
+
+		**********************************************
+		Thank you for buying from PC Store AG!
+		**********************************************

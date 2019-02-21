@@ -40,14 +40,14 @@ public class LoginAppMain extends Application {
 			System.out.println("Class LoginAppMain: JavaFx app run.");
 		}
 		
-		/*stage.setOnCloseRequest(e -> {
+		stage.setOnCloseRequest(e -> {
 			e.consume();
-			Boolean answer = CloseAlert.displayCloseMessage();
+			Boolean answer = CloseAlert.displayCloseMessage("Close PC Store AG app", "Are you sure you want to close the window?", "Yes", "No");
 			if (answer == true) {
 				stage.close();
 				System.out.println("Class LoginAppMain: JavaFx app close.");
 			}
-		});*/
+		});
 		
 	}
 
