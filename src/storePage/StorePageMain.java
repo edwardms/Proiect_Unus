@@ -23,7 +23,7 @@ public class StorePageMain extends Application {
 		Parent root;
 		Scene scene;
 		try {
-			fxmlLoginFileLocation ="StoreMainPageSceneBuilder.fxml";
+			fxmlLoginFileLocation ="StoreMainPageFxml.fxml";
 			root = FXMLLoader.load(getClass().getResource(fxmlLoginFileLocation));
 			
 			scene = new Scene(root);

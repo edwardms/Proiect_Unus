@@ -15,7 +15,6 @@ public class StoreUpdatePageOptions {
 	
 	public static boolean isConnectedToDB(Connection conn, Label label) {
 		if (conn != null) {
-			label.setText("");
 			System.out.println("Class StoreUpdatePageModel: Store app controller connected.");
 			return true;
 		} else {
@@ -69,11 +68,14 @@ public class StoreUpdatePageOptions {
 		}
 	}
 	
-	public static boolean checkIdInput(TextField newIdTextfield, Label productUpdateInfo) {
-		
+	
+	
+	
+	
+	public static boolean checkIdInput(TextField newIdTextfield, Label productUpdateInfo) {		
 		
 		if (newIdTextfield.getText().isEmpty()) {
-			return true;	//empty field, it remains the same			
+			return false;	//empty field, it remains the same			
 		} else {
 			String id = newIdTextfield.getText();
 			if (id.length() != 15) {
@@ -137,7 +139,9 @@ public class StoreUpdatePageOptions {
 	}
 	
 	public static void decipherId(TextField newIdTextfield) {
-		//decipher ID according to the comment below the method
+		//TO-DO
+		
+		//decipher ID according to the multi-line comment below
 	}
 	
 	/*
@@ -160,7 +164,7 @@ public class StoreUpdatePageOptions {
 	
 	public static boolean checkQuantityInput(TextField newQuantityTextfield, Label productUpdateInfo) {
 		if (newQuantityTextfield.getText().isEmpty()) {
-			return true;
+			return false;
 		} else {
 			long quantity = 0;
 			try {
@@ -179,11 +183,11 @@ public class StoreUpdatePageOptions {
 	
 	public static boolean checkPriceInput(TextField newPriceTextfield, Label productUpdateInfo) {
 		if (newPriceTextfield.getText().isEmpty()) {
-			return true;
+			return false;
 		} else {
-			long price = 0;
+			double price = 0;
 			try {
-				price = Long.parseLong(newPriceTextfield.getText());
+				price = Double.parseDouble(newPriceTextfield.getText());
 				System.out.println("input price " + price);
 			} catch (NumberFormatException e) {
 				productUpdateInfo.setText("Wrong price. Please input a float or integer number!");
@@ -194,10 +198,6 @@ public class StoreUpdatePageOptions {
 			return true;
 		}
 		
-	}
-	
-	
-	
-	
+	}	
 
 }

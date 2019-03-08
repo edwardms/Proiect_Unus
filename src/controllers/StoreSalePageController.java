@@ -193,7 +193,7 @@ public class StoreSalePageController implements Initializable {
 	}
 	
 	@FXML 
-	private void addProduct() throws SQLException {
+	private void addProductButtonClick() throws SQLException {
 		
 		try {
 			conn = ConnectToDB.connectToDataBase();			
@@ -249,7 +249,7 @@ public class StoreSalePageController implements Initializable {
 	}
 	
 	@FXML
-	private void deleteProduct() throws SQLException {
+	private void deleteProductButtonClick() throws SQLException {
 		
 		try {
 			conn = ConnectToDB.connectToDataBase();			
@@ -294,7 +294,7 @@ public class StoreSalePageController implements Initializable {
 	}
 	
 	@FXML
-	private void endTransaction() {
+	private void endTransactionButtonClick() {
 		if (selectedItemsTable.getItems().isEmpty()) {
 			endTransactionTextarea.setText("No items added in order to complete a transaction");
 		} else {			
@@ -340,8 +340,8 @@ public class StoreSalePageController implements Initializable {
 				selectedItemsTable.getItems().removeAll(selectedItemsTable.getItems());
 			}
 			
-		}	
+		}
 		
 	}
-
+		
 }

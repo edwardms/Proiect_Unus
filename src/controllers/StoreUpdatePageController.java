@@ -2,6 +2,7 @@ package controllers;
 
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -83,6 +84,8 @@ public class StoreUpdatePageController implements Initializable {
 	private String sql;
 	private Connection conn = null;
 	private ResultSet rs = null;
+	private PreparedStatement ps = null;
+	
 	private ObservableList<ProductsData> productsList;
 	
 	@Override
@@ -115,11 +118,10 @@ public class StoreUpdatePageController implements Initializable {
 	private void displayAllProductsUpdate() throws SQLException {
 		
 		sql = "SELECT * FROM products WHERE id";
-		productUpdateInfo.setText("");
 		
 		try {
 			conn = ConnectToDB.connectToDataBase();
-			StoreSalePageOptions.isConnectedToDB(conn, productUpdateInfo);		
+			StoreUpdatePageOptions.isConnectedToDB(conn, productUpdateInfo);		
 			productsList = FXCollections.observableArrayList();
 			ResultSet rs = conn.createStatement().executeQuery(sql);
 			
@@ -201,31 +203,99 @@ public class StoreUpdatePageController implements Initializable {
 	}
 	
 	@FXML
-	private void updateProductButton() {
+	private void updateProductButtonClick() throws SQLException {
 		
 		if (newNameTextarea.getText().isEmpty() && newIdTextfield.getText().isEmpty() && newQuantityTextfield.getText().isEmpty() && newPriceTextfield.getText().isEmpty()) {
 			productUpdateInfo.setText("Please fill at least one of the input boxes above! The ones that are unfilled will remain the same.");
 		} else {
 			
 			productUpdateInfo.setText("");
-			newIdTextfield.setText(newIdTextfield.getText().toUpperCase().trim());			
-			StoreUpdatePageOptions.checkIdInput(newIdTextfield, productUpdateInfo);			
-			StoreUpdatePageOptions.checkQuantityInput(newQuantityTextfield, productUpdateInfo);			
-			StoreUpdatePageOptions.checkPriceInput(newPriceTextfield, productUpdateInfo);
+			newIdTextfield.setText(newIdTextfield.getText().toUpperCase().trim());
+			
+			String updateName;
+			String updateId;
+			String updatePrice;
+			String updateQuantity;
+			
+			String id = productsUpdateTable.getSelectionModel().getSelectedItem().getId();
 			
 			
 			
+			//check if the text fields are empty(the property remains the same) or it's changed
+			if (!newNameTextarea.getText().isEmpty()) {
+				updateName = newNameTextarea.getText();
+			} else {
+				updateName = productsUpdateTable.getSelectionModel().getSelectedItem().getName();
+			}
 			
 			
+			if (!newIdTextfield.getText().isEmpty()){				
+				if (!StoreUpdatePageOptions.checkIdInput(newIdTextfield, productUpdateInfo)) {
+					return;
+				}			
+				updateId = newIdTextfield.getText();
+			} else {
+				updateId = productsUpdateTable.getSelectionModel().getSelectedItem().getId();
+			}
 			
 			
+			if (!newQuantityTextfield.getText().isEmpty()) {				
+				if (!StoreUpdatePageOptions.checkQuantityInput(newQuantityTextfield, productUpdateInfo)) {
+					return;
+				}
+				updateQuantity = newQuantityTextfield.getText();
+			} else {
+				updateQuantity = productsUpdateTable.getSelectionModel().getSelectedItem().getQuantity();
+			}
 			
 			
+			if (!newPriceTextfield.getText().isEmpty()) {
+				if (!StoreUpdatePageOptions.checkPriceInput(newPriceTextfield, productUpdateInfo)) {
+					return;
+				}
+				updatePrice = newPriceTextfield.getText();
+			} else {				
+				updatePrice = productsUpdateTable.getSelectionModel().getSelectedItem().getPrice();
+			}
 			
+			String updateSuccessful = "Item " + productsUpdateTable.getSelectionModel().getSelectedItem().getName() + " has been updated." + 
+									 "\nNew Name: " + updateName + 
+									 "\nNew ID: " + updateId + 
+									 "\nNew Price: " + updatePrice + " $" + 
+									 "\nNew Quantity: " + updateQuantity + " piece(s)";
+			
+			//connect to DB and change the item properties			
+			try {
+				conn = ConnectToDB.connectToDataBase();				
+				sql = "UPDATE products SET id = ?, name = ?, price = ?, quantity = ?  WHERE products.id = ?";
+				ps = conn.prepareStatement(sql);
+				
+				ps.setString(1, updateId);
+				ps.setString(2, updateName);
+				ps.setString(3, updatePrice);
+				ps.setString(4, updateQuantity);
+				ps.setString(5, id);
+				
+				ps.executeUpdate();
+				
+				
+				productUpdateInfo.setText(updateSuccessful);
+				System.out.println("Update successful");
+				
+				displayAllProductsUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+				productUpdateInfo.setText("Error: could not perform the update");
+			} finally {
+				if (conn != null) {
+					conn.close();
+				} if (ps != null) {
+					ps.close();
+				}
+			}
 			
 		}
-		
-		
 		
 	}
 
