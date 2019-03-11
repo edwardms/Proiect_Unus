@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import dbUtil.ConnectToDB;
+import fxUtil.CloseAlert;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -212,14 +213,9 @@ public class StoreUpdatePageController implements Initializable {
 			productUpdateInfo.setText("");
 			newIdTextfield.setText(newIdTextfield.getText().toUpperCase().trim());
 			
-			String updateName;
-			String updateId;
-			String updatePrice;
-			String updateQuantity;
+			String updateName, updateId, updatePrice, updateQuantity;
 			
-			String id = productsUpdateTable.getSelectionModel().getSelectedItem().getId();
-			
-			
+			String id = productsUpdateTable.getSelectionModel().getSelectedItem().getId();						
 			
 			//check if the text fields are empty(the property remains the same) or it's changed
 			if (!newNameTextarea.getText().isEmpty()) {
@@ -256,7 +252,7 @@ public class StoreUpdatePageController implements Initializable {
 				updatePrice = newPriceTextfield.getText();
 			} else {				
 				updatePrice = productsUpdateTable.getSelectionModel().getSelectedItem().getPrice();
-			}
+			}			
 			
 			String updateSuccessful = "Item " + productsUpdateTable.getSelectionModel().getSelectedItem().getName() + " has been updated." + 
 									 "\nNew Name: " + updateName + 
@@ -264,36 +260,40 @@ public class StoreUpdatePageController implements Initializable {
 									 "\nNew Price: " + updatePrice + " $" + 
 									 "\nNew Quantity: " + updateQuantity + " piece(s)";
 			
-			//connect to DB and change the item properties			
-			try {
-				conn = ConnectToDB.connectToDataBase();				
-				sql = "UPDATE products SET id = ?, name = ?, price = ?, quantity = ?  WHERE products.id = ?";
-				ps = conn.prepareStatement(sql);
-				
-				ps.setString(1, updateId);
-				ps.setString(2, updateName);
-				ps.setString(3, updatePrice);
-				ps.setString(4, updateQuantity);
-				ps.setString(5, id);
-				
-				ps.executeUpdate();
-				
-				
-				productUpdateInfo.setText(updateSuccessful);
-				System.out.println("Update successful");
-				
-				displayAllProductsUpdate();
-				
-			} catch (SQLException e) {
-				e.printStackTrace();
-				productUpdateInfo.setText("Error: could not perform the update");
-			} finally {
-				if (conn != null) {
-					conn.close();
-				} if (ps != null) {
-					ps.close();
+			if (!CloseAlert.displayCloseMessage("Add item", "Are you sure you want to add this item?", "Yes", "No")) {
+				return;
+			} else {
+				//connect to DB and change the item properties	
+				try {
+					conn = ConnectToDB.connectToDataBase();				
+					sql = "UPDATE products SET id = ?, name = ?, price = ?, quantity = ?  WHERE products.id = ?";
+					ps = conn.prepareStatement(sql);
+					
+					ps.setString(1, updateId);
+					ps.setString(2, updateName);
+					ps.setString(3, updatePrice);
+					ps.setString(4, updateQuantity);
+					ps.setString(5, id);
+					
+					ps.executeUpdate();
+					
+					
+					productUpdateInfo.setText(updateSuccessful);
+					System.out.println("Update successful");
+					
+					displayAllProductsUpdate();
+					
+				} catch (SQLException e) {
+					e.printStackTrace();
+					productUpdateInfo.setText("Error: could not perform the update");
+				} finally {
+					if (conn != null) {
+						conn.close();
+					} if (ps != null) {
+						ps.close();
+					}
 				}
-			}
+			}		
 			
 		}
 		

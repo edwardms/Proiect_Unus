@@ -1,5 +1,6 @@
 package fxUtil;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -26,10 +27,13 @@ public class CloseAlert {
 		
 		Label message = new Label(messageToDisplay);
 		message.setFont(new Font(15));
+		message.setPadding(new Insets(0, 0, 30, 0));
 		Button yesButton = new Button(yesButtonText);
 		yesButton.setFont(new Font(15));
+		yesButton.setPadding(new Insets(0, 40, 0, 40));
 		Button noButton = new Button(noButtonText);
 		noButton.setFont(new Font(15));
+		noButton.setPadding(new Insets(0, 40, 0, 40));
 		
 		yesButton.setOnAction(e -> {
 			answer = true;
@@ -45,6 +49,7 @@ public class CloseAlert {
 		HBox buttonsBox = new HBox(10);
 		buttonsBox.getChildren().addAll(yesButton, noButton);
 		buttonsBox.setAlignment(Pos.CENTER);
+		buttonsBox.setSpacing(50);
 		layout.getChildren().addAll(message, buttonsBox);
 		layout.setAlignment(Pos.CENTER);
 		Scene scene = new Scene(layout);

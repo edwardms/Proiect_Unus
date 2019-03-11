@@ -20,7 +20,7 @@ import javafx.stage.Stage;
 
 public class LoginAppController implements Initializable {
 	
-	LoginAppModel loginModel = new LoginAppModel();
+	LoginAppOptions loginModel = new LoginAppOptions();
 	
 	@FXML
 	private TextField usernameField;
@@ -73,8 +73,8 @@ public class LoginAppController implements Initializable {
 		String fxmlStoreSalePageLocation;
 		try {
 			salePageStage = new Stage();
-			fxmlStoreSalePageLocation = "../storePage/StoreSalePageSceneBuilder.fxml";
-			root = FXMLLoader.load(getClass().getResource(fxmlStoreSalePageLocation));
+			fxmlStoreSalePageLocation = "storePage/StoreMainPageFxml.fxml";
+			root = FXMLLoader.load(getClass().getClassLoader().getResource(fxmlStoreSalePageLocation));
 			
 			Scene salePageScene = new Scene(root);
 			salePageStage.setScene(salePageScene);

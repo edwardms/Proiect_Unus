@@ -2,7 +2,6 @@ package storePage;
 
 import java.io.IOException;
 
-import fxUtil.CloseAlert;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -39,15 +38,6 @@ public class StorePageMain extends Application {
 		}finally {
 			System.out.println("Class StorePageMain: JavaFx app run.");
 		}
-		
-		/*stage.setOnCloseRequest(e -> {
-			e.consume();
-			Boolean answer = CloseAlert.displayCloseMessage();
-			if (answer == true) {
-				stage.close();
-				System.out.println("Class LoginAppMain: JavaFx app close.");
-			}
-		});*/
 		
 	}
 

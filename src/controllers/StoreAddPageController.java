@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import dbUtil.ConnectToDB;
+import fxUtil.CloseAlert;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -49,19 +50,7 @@ public class StoreAddPageController implements Initializable {
 	
 	@FXML
 	private Button displayAllProductsButtonAdd;
-	
-	@FXML
-	private Label addedProductName;
-	
-	@FXML
-	private Label addedProductId;
-	
-	@FXML
-	private Label addedProductQuantity;
-	
-	@FXML
-	private Label addedProductPrice;
-	
+			
 	@FXML
 	private TextArea addNameTextarea;
 	
@@ -211,7 +200,7 @@ public class StoreAddPageController implements Initializable {
 			}			
 			addId = addIdTextfield.getText();
 			
-			if (!StoreAddPageOptions.checkDuplicateItem(addId)) {
+			if (checkDuplicateItem(addId)) {
 				productAddInfo.setText("ID " + addId + " is already in the database");
 				return;
 			}
@@ -233,45 +222,117 @@ public class StoreAddPageController implements Initializable {
 								  "\n Price: " + addPrice + " $" + 
 								  "\n Quantity: " + addQuantity + " piece(s)";
 			
-			//connect to DB and change the item properties			
-			try {
-				conn = ConnectToDB.connectToDataBase();				
-				sql = "INSERT INTO products (id, name, price, quantity) VALUES (?, ?, ?, ?)";
-				ps = conn.prepareStatement(sql);
-				
-				ps.setString(1, addId);
-				ps.setString(2, addName);
-				ps.setString(3, addPrice);
-				ps.setString(4, addQuantity);
-				
-				ps.executeUpdate();
-				
-				productAddInfo.setText(addSuccesful);
-				
-				addNameTextarea.setText("");
-				addIdTextfield.setText("");
-				addPriceTextfield.setText("");
-				addQuantityTextfield.setText("");
-				
-				displayAllProductsAdd();
-				
-			} catch (SQLException e) {
-				e.printStackTrace();
-				productAddInfo.setText("Error: could not perform the item addition to the database");
-			} finally {
-				if (conn != null) {
-					conn.close();
-				} if (ps != null) {
-					ps.close();
+			if (!CloseAlert.displayCloseMessage("Add item", "Are you sure you want to add this item?", "Yes", "No")) {
+				return;
+			} else {
+				try {
+					conn = ConnectToDB.connectToDataBase();				
+					sql = "INSERT INTO products (id, name, price, quantity) VALUES (?, ?, ?, ?)";
+					ps = conn.prepareStatement(sql);
+					
+					ps.setString(1, addId);
+					ps.setString(2, addName);
+					ps.setString(3, addPrice);
+					ps.setString(4, addQuantity);
+					
+					ps.executeUpdate();
+					
+					productAddInfo.setText(addSuccesful);
+					
+					addNameTextarea.setText("");
+					addIdTextfield.setText("");
+					addPriceTextfield.setText("");
+					addQuantityTextfield.setText("");
+					
+					displayAllProductsAdd();
+					
+					System.out.println("item added to database");
+					
+				} catch (SQLException e) {
+					e.printStackTrace();
+					productAddInfo.setText("Error: could not perform the item addition to the database");
+				} finally {
+					if (conn != null) {
+						conn.close();
+					} if (ps != null) {
+						ps.close();
+					}
 				}
-			}
+			}		
 			
 		}
 		
 	}
 	
+	private boolean checkDuplicateItem(String inputId) throws SQLException {
+		sql = "SELECT * FROM products WHERE id LIKE('%" + addIdTextfield.getText() + "%')";
+		boolean isDuplicate = false;
+		
+		try {
+			conn = ConnectToDB.connectToDataBase();
+			StoreSalePageOptions.isConnectedToDB(conn, productAddInfo);	
+			productsList = FXCollections.observableArrayList();
+			
+			rs = conn.prepareStatement(sql).executeQuery();
+			
+			while (rs.next()) {
+				if (rs.getString(2).equals(inputId)) {
+					isDuplicate = true;
+				}
+			}
+						
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				rs.close();
+			}
+			if (conn != null) {
+				conn.close();
+			}
+		}
+		
+		return isDuplicate;
+	
+	}
+	
 	@FXML
-	public void deleteProductButtonClick() {
+	public void deleteProductButtonClick() throws SQLException {
+		
+		sql = "DELETE FROM products WHERE id = ?";
+		String productName = productsAddTable.getSelectionModel().getSelectedItem().getName();
+		String productId = productsAddTable.getSelectionModel().getSelectedItem().getId();
+		
+		if (productsAddTable.getSelectionModel().isEmpty()) {
+			productAddInfo.setText("Please select an item from the table to delete it");
+		} else {
+			if (!CloseAlert.displayCloseMessage("Delete item", "Are you sure you want to delete this item?", "Yes", "No")) {
+				return;
+			} else {
+				try {
+					conn = ConnectToDB.connectToDataBase();
+					ps = conn.prepareStatement(sql);
+					ps.setString(1, productsAddTable.getSelectionModel().getSelectedItem().getId());
+					
+					ps.executeUpdate();
+					
+					productAddInfo.setText("Product " + productName + ", with the ID: " + productId + ", was deleted from the database");
+					
+					displayAllProductsAdd();
+					
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					if (conn != null) {
+						conn.close();
+					}
+					if (ps != null) {
+						ps.close();
+					}
+				}
+			}
+		}			
+		
 		System.out.println("item deleted from database");
 	}
 

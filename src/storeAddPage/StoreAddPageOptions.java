@@ -16,13 +16,5 @@ public class StoreAddPageOptions {
 			return false;
 		}	
 	}
-	
-	public static boolean checkDuplicateItem(String id) {
-		
-		//TO-DO
-		
-		
-		return true;
-	}
 
 }
